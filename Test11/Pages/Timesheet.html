@@ -1,0 +1,784 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+html {
+  font-family: Arial,Helvetica,sans-serif;
+  background-color: white;
+  color: black;
+}
+table {
+  border-collapse: collapse;
+  empty-cells: show;
+  margin: 1em 0em;
+  border: 1px solid black;
+}
+th, td {
+  border: 1px solid black;
+  padding: 0.1em 0.2em;
+  height: 1.5em;
+  width: 12em;
+}
+td.colspan4, th.colspan4 {
+    width: 48em;
+}
+td.colspan3, th.colspan3 {
+    width: 36em;
+}
+td.colspan2, th.colspan2 {
+    width: 24em;
+}
+th {
+  background-color: rgb(192, 192, 192);
+  color: black;
+  height: 1.7em;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+td.name {
+  background-color: rgb(240, 240, 240);
+  letter-spacing: 0.1em;
+}
+td.name, th.name {
+  width: 10em;
+}
+</style>
+<title>Timesheet</title>
+</head>
+<body>
+<h1>Timesheet</h1>
+<table border="1" id="setting">
+<tr>
+<th class="name" colspan="5">Settings</th>
+</tr>
+<tr>
+<td class="name">Resource</td>
+<td>../ObjRepository/Timesheet.html</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Resource</td>
+<td>../Lib/ApplicationSpecific.html</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name">Resource</td>
+<td>../ObjRepository/Environment.html</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<table border="1" id="keyword">
+<tr>
+<th class="name" colspan="5">Keywords</th>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Navigate to Timesheet Screen">Navigate to Timesheet Screen</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Navigate to timesheet screen</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Click Element</td>
+<td>${locTimesheet}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Sleep</td>
+<td>${ShortWait}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Search Timesheet By Employee Name">Search Timesheet By Employee Name</a></td>
+<td>[Arguments]</td>
+<td>${first}</td>
+<td>${last}</td>
+<td>${expectedTimesheetNum}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${searchkeyword}</td>
+<td>Catenate</td>
+<td>${first}</td>
+<td>${last}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Input Text</td>
+<td>${locTSTable_SearchBox}</td>
+<td>${searchkeyword}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Click Element</td>
+<td>${locTSTable_SearchBtn}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Sleep</td>
+<td>${ShortWait}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>#CHECKPOINT 1: check if no result returned</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${locTSTable_Records_EmployeeName}</td>
+<td>Replace String</td>
+<td>${locTSTable_Records_EmployeeName}</td>
+<td>||EMPLOYEE NAME||</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${searchkeyword}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${timesheetCount}</td>
+<td>Get Matching Xpath Count</td>
+<td>${locTSTable_Records_EmployeeName}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Should Be Equal As Strings</td>
+<td>${timesheetCount}</td>
+<td>${expectedTimesheetNum}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Log</td>
+<td>CHECKPOINT 1 Completed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>#CHECK POINT 2: check if every single record contains the given keyword</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>: FOR</td>
+<td>${i}</td>
+<td>IN RANGE</td>
+<td>1</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${timesheetCount} + 1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${i_string}</td>
+<td>Convert To String</td>
+<td>${i}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${locTSTable_Records_Fields_Row}</td>
+<td>Replace String</td>
+<td>${locTSTable_Records_Fields}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>||ROW NUMBER||</td>
+<td>${i_string}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>@{fieldList}=</td>
+<td>Get All Timesheet Fields</td>
+<td>${locTSTable_Records_Fields_Row}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>List Should Contain Value</td>
+<td>${fieldList}</td>
+<td>${searchkeyword}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>Log</td>
+<td>CHECKPOINT 2 Completed</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Get All Timesheet Fields">Get All Timesheet Fields</a></td>
+<td>[Arguments]</td>
+<td>${locTSTable_Records_Fields_Row_Current}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">This function aims to get all timesheet fields</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>@{fieldList}=</td>
+<td>Create List</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${fieldCount}</td>
+<td>Get Matching Xpath Count</td>
+<td>${locTSTable_Records_Fields_Row_Current}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>: FOR</td>
+<td>${j}</td>
+<td>IN RANGE</td>
+<td>1</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${fieldCount}+1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${locTSTable_Records_Fields_Column_Current}</td>
+<td>Catenate</td>
+<td>SEPARATOR=</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>${locTSTable_Records_Fields_Row_Current}</td>
+<td>[${j}]</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${fieldValue}=</td>
+<td>Get Text</td>
+<td>${locTSTable_Records_Fields_Column_Current}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>Append To List</td>
+<td>${fieldList}</td>
+<td>${fieldValue}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>#put all fields into teporary list</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>[Return]</td>
+<td>@{fieldList}</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Search Timesheet">Search Timesheet</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">This function aims to search timesheet based on employee name</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>@{data}=</td>
+<td>Read Xls File</td>
+<td>${PROJECT_HOME}/test_data/Timesheet/TCTIMES-1.xls</td>
+<td>employee</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>: FOR</td>
+<td>${row}</td>
+<td>IN</td>
+<td>@{data}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>Search Timesheet By Employee Name</td>
+<td>${row["First Name"]}</td>
+<td>${row["Last Name"]}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>${row["Expected Number of Timesheets"]}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"><a name="keyword_Compare Timesheet">Compare Timesheet</a></td>
+<td>[Documentation]</td>
+<td class="colspan3" colspan="3">Compare timesheet roster and actual to check the status\n<br>
+</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>${recordCount}</td>
+<td>Get Matching Xpath Count</td>
+<td>${locTSTable_Records}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>:FOR</td>
+<td>${i}</td>
+<td>IN RANGE</td>
+<td>1</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td>...</td>
+<td>${recordCount}+1</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${i_string}</td>
+<td>Convert To String</td>
+<td>${i}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${locTSTable_Records_Fields_Row}</td>
+<td>Replace String</td>
+<td>${locTSTable_Records_Fields}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>||ROW NUMBER||</td>
+<td>${i_string}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>#get work date</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${locTSTable_Records_WorkDate}</td>
+<td>Catenate</td>
+<td>SEPARATOR=</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>${locTSTable_Records_Fields_Row}</td>
+<td>[2]</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${workDate}</td>
+<td>Get Text</td>
+<td>${locTSTable_Records_WorkDate}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>#get roster start time</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${locTSTable_Records_RosterStartTime}</td>
+<td>Catenate</td>
+<td>SEPARATOR=</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>${locTSTable_Records_Fields_Row}</td>
+<td>[3]</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${rosterStart}</td>
+<td>Get Text</td>
+<td>${locTSTable_Records_RosterStartTime}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${rosterStart}</td>
+<td>Catenate</td>
+<td>${workDate}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>${rosterStart}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${rosterStart}</td>
+<td>Convert Date</td>
+<td>${rosterStart}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>date_format=%d/%m/%Y %H:%M</td>
+<td>result_format=%d/%m/%Y %H:%M</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>#get roster end time</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${locTSTable_Records_RosterEndTime}</td>
+<td>Catenate</td>
+<td>SEPARATOR=</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>${locTSTable_Records_Fields_Row}</td>
+<td>[4]</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${rosterEnd}</td>
+<td>Get Text</td>
+<td>${locTSTable_Records_RosterEndTime}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${rosterEnd}</td>
+<td>Catenate</td>
+<td>${workDate}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>${rosterEnd}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${rosterEnd}</td>
+<td>Convert Date</td>
+<td>${rosterEnd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>date_format=%d/%m/%Y %H:%M</td>
+<td>result_format=%d/%m/%Y %H:%M</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>#get actual start time</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${locTSTable_Records_ActualStartTime}</td>
+<td>Catenate</td>
+<td>SEPARATOR=</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>${locTSTable_Records_Fields_Row}</td>
+<td>[5]</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${actualStart}</td>
+<td>Get Text</td>
+<td>${locTSTable_Records_ActualStartTime}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${actualStart}</td>
+<td>Catenate</td>
+<td>${workDate}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>${actualStart}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${actualStart}</td>
+<td>Convert Date</td>
+<td>${actualStart}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>date_format=%d/%m/%Y %H:%M</td>
+<td>result_format=%d/%m/%Y %H:%M</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>#get actual end time</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${locTSTable_Records_ActualEndTime}</td>
+<td>Catenate</td>
+<td>SEPARATOR=</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>${locTSTable_Records_Fields_Row}</td>
+<td>[6]</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${actualEnd}</td>
+<td>Get Text</td>
+<td>${locTSTable_Records_ActualEndTime}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${actualEnd}</td>
+<td>Catenate</td>
+<td>${workDate}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>${actualEnd}</td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${actualEnd}</td>
+<td>Convert Date</td>
+<td>${actualEnd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>date_format=%d/%m/%Y %H:%M</td>
+<td>result_format=%d/%m/%Y %H:%M</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>#set the status</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${statusStart}</td>
+<td>Set Variable If</td>
+<td>'${rosterStart}' &lt; '${actualStart}'</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>Late Start</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${statusEnd}</td>
+<td>Set Variable If</td>
+<td>'${rosterEnd}' &lt;= '${actualEnd}'</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>Normal</td>
+<td>Early Finish</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>#get the actual status</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${locTSTable_Records_expectedStatus}</td>
+<td>Catenate</td>
+<td>SEPARATOR=</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>...</td>
+<td>${locTSTable_Records_Fields_Row}</td>
+<td>[7]</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${expectedStatus}</td>
+<td>Get Text</td>
+<td>${locTSTable_Records_expectedStatus}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>#get expected status</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>${actualStatus}</td>
+<td>Set Variable</td>
+<td>${statusStart},${statusEnd}</td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>#verify if the status are equal</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="name"></td>
+<td></td>
+<td>Should Be Equal As Strings</td>
+<td>${expectedStatus}</td>
+<td>${actualStatus}</td>
+</tr>
+</table>
+</body>
+</html>
